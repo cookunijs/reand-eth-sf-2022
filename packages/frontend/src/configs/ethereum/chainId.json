@@ -1,0 +1,7 @@
+{
+  "1": "mainnet",
+  "5": "goerli",
+  "137": "polygonMainnet",
+  "80001": "polygonTestnetMumbai",
+  "31337": "localhost"
+}

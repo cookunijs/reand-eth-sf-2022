@@ -1,0 +1,64 @@
+{
+  "name": "reand",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "cookunijs",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ]
+  },
+  "engines": {
+    "node": "16.17.0",
+    "npm": "Please use yarn, not npm."
+  },
+  "scripts": {
+    "postinstall": "patch-package",
+    "format": "prettier --ignore-path .gitignore --write '**/*.{.ts,.js,tsx,jsx,json,md,sol}'",
+    "lint": "yarn run-p lint:*",
+    "lint:frontend": "eslint --ignore-path .gitignore . --ext .ts,.js,tsx,jsx --max-warnings=0 --fix",
+    "lint:contracts": "yarn workspace contracts lint:fix",
+    "killport": "kill-port --port 3000,5000,5001,8000,8080,8085,9099",
+    "clean": "run-p clean:*",
+    "clean:frontend": "yarn workspace frontend clean",
+    "prep": "yarn killport && yarn clean",
+    "pretest": "yarn prep",
+    "test": "run-p test:*",
+    "predev": "yarn prep",
+    "dev": "yarn run-p dev:*",
+    "dev:frontend": "yarn workspace frontend dev",
+    "dev:storybook": "yarn workspace frontend storybook",
+    "prebuild": "yarn prep",
+    "build": "run-p build:*",
+    "build:frontend": "cp yarn.lock packages/frontend/yarn.lock && yarn workspace frontend build && rm packages/frontend/yarn.lock",
+    "build:contracts": "yarn workspace contracts build",
+    "predeploy": "yarn prep",
+    "deploy:dev": "run-p deploy:*:dev",
+    "deploy:prod": "run-p deploy:*:prod",
+    "deploy:frontend:dev": "cp yarn.lock packages/frontend/yarn.lock && yarn workspace frontend deploy:dev && rm packages/frontend/yarn.lock",
+    "deploy:frontend:staging": "cp yarn.lock packages/frontend/yarn.lock && yarn workspace frontend deploy:staging && rm packages/frontend/yarn.lock",
+    "deploy:frontend:prod": "cp yarn.lock packages/frontend/yarn.lock && yarn workspace frontend deploy:prod && rm packages/frontend/yarn.lock",
+    "prepare": "husky install",
+    "pre-commit": "yarn format && yarn lint"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.36.1",
+    "@typescript-eslint/parser": "5.36.1",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.31.1",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "firebase-tools": "10.2.2",
+    "husky": "7.0.4",
+    "kill-port": "1.6.1",
+    "npm-run-all": "4.1.5",
+    "patch-package": "6.5.0",
+    "prettier": "2.7.1",
+    "react": "17.0.2"
+  },
+  "dependencies": {},
+  "repository": "https://github.com/cookunijs/reand-eth-sf-2022.git"
+}

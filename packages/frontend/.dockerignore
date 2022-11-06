@@ -1,0 +1,11 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+env
+flags
+scripts
+.storybook
+.next
+.git
+

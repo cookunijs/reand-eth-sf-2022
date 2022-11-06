@@ -1,0 +1,27 @@
+{
+  "mainnet": {
+    "chainId": "1",
+    "rpc": "https://eth-mainnet.g.alchemy.com/v2/",
+    "explore": "https://etherscan.io/"
+  },
+  "goerli": {
+    "chainId": "5",
+    "rpc": "https://eth-goerli.g.alchemy.com/v2/",
+    "explore": "https://goerli.etherscan.io/"
+  },
+  "polygonMainnet": {
+    "chainId": "137",
+    "rpc": "https://polygon-mainnet.g.alchemy.com/v2/",
+    "explore": "https://explorer-mainnet.polygonvigil.com/"
+  },
+  "polygonTestnetMumbai": {
+    "chainId": "80001",
+    "rpc": "https://polygon-mumbai.g.alchemy.com/v2/",
+    "explore": "https://explorer-mumbai.polygonvigil.com/"
+  },
+  "localhost": {
+    "chainId": "31337",
+    "rpc": "http://localhost:8545",
+    "explore": ""
+  }
+}

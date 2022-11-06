@@ -1,0 +1,30 @@
+{
+  "editor.formatOnSave": true,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.format.enable": false,
+  "editor.lineNumbers": "on",
+  "editor.rulers": [80],
+  "editor.wordWrap": "on",
+  "eslint.packageManager": "yarn",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "npm.packageManager": "yarn",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "code-runner.executorMap": {
+    "javascript": "clear; node",
+    "typescript": "clear; ts-node"
+  },
+  "files.associations": {
+    "*.ts": "typescript"
+  },
+  "css.validate": false,
+  "scss.validate": false
+}

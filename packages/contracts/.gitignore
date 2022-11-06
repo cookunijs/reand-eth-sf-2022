@@ -1,0 +1,21 @@
+node_modules
+env/.env.*
+env/.env.sample!
+coverage
+coverage.json
+typechain
+yarn-error.log
+
+#Hardhat files
+artifacts/
+cache/
+
+#foundry test compilation files
+cache
+out
+
+.DS_Store
+
+# VScode
+.vscode
+__pycache__
