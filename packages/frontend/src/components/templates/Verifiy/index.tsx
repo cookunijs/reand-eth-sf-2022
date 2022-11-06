@@ -59,7 +59,7 @@ export interface VerifiyProps {
 export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
-  const { data: signer, isError, isLoading } = useSigner();
+  const { data: signer } = useSigner();
 
   const { reward } = useReward('rewardId', 'confetti', {
     lifetime: 280,
@@ -212,10 +212,9 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
             <>
               {pageContext && pageContext.worldId && (
                 <Stack w="100%">
-                  <Text fontSize="lg" fontWeight={'bold'}>
-                    World ID
+                  <Text fontSize="lg" fontWeight="bold">
+                    Verifiy World ID
                   </Text>
-                  {/* <Text fontSize="md">Please verify you are a unique person</Text> */}
                   {signer && (
                     <>
                       {!isWorldIdVerified && (
@@ -233,7 +232,7 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                           {worldIdVerificationResponse && (
                             <Button
                               onClick={execute}
-                              disabled={!worldIdVerificationResponse}
+                              disabled={!worldIdVerificationResponse || disabled || loading}
                               colorScheme="blue"
                             >
                               Register
@@ -243,10 +242,26 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                       )}
                       {isWorldIdVerified && (
                         <Text fontSize="sm" fontWeight={'bold'}>
-                          Verified
+                          Verified ✅
                         </Text>
                       )}
                     </>
+                  )}
+                </Stack>
+              )}
+
+              {pageContext && pageContext.polygonId && polygonIdQR && (
+                <Stack w="100%">
+                  <Text fontSize="lg" fontWeight="bold">
+                    Verifiy Polygon ID
+                  </Text>
+                  {!isPolygonIdVerified && (
+                    <QRCode level="Q" style={{ width: 256 }} value={JSON.stringify(polygonIdQR)} />
+                  )}
+                  {isPolygonIdVerified && (
+                    <Text fontSize="sm" fontWeight={'bold'}>
+                      Verified ✅
+                    </Text>
                   )}
                 </Stack>
               )}
@@ -278,7 +293,7 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                 ></Stack>
 
                 <Stack spacing="4" direction="row" w="100%">
-                  <Link type="external" w="100%" href="/https://dune.com/shiro_social/reand">
+                  <Link type="external" w="100%" href="https://dune.com/shiro_social/reand">
                     <Button w="100%" size="md" fontWeight="semibold" bgColor="orange.200">
                       <Stack
                         spacing="2"

@@ -16,7 +16,7 @@ import { useSigner } from 'wagmi';
 import { motion } from 'framer-motion';
 import { Button, FormControl, Image, Link } from '@components/atoms';
 import { Modal } from '@components/molecules';
-import { Footer, Head, Header, HeadProps, SelectNFTModal } from '@components/organisms';
+import { Head, Header, HeadProps, SelectNFTModal } from '@components/organisms';
 import { FaTwitter } from 'react-icons/fa';
 import { FiCheck, FiTrash2, FiX } from 'react-icons/fi';
 import { useReward } from 'react-rewards';
@@ -42,7 +42,7 @@ export interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ meta }) => {
-  const { data: signer, isError, isLoading } = useSigner();
+  const { data: signer, isLoading } = useSigner();
   const { reward } = useReward('rewardId', 'confetti', {
     lifetime: 280,
     angle: 75,
@@ -394,9 +394,9 @@ export const Home: React.FC<HomeProps> = ({ meta }) => {
 
           <Stack w="full" pt="4">
             <Button
+              w="100%"
               onClick={execute}
               colorScheme="blue"
-              w="100%"
               disabled={disabled}
               isLoading={loading || isLoading}
             >
@@ -405,8 +405,6 @@ export const Home: React.FC<HomeProps> = ({ meta }) => {
           </Stack>
         </Stack>
       </Stack>
-
-      {/* <Footer /> */}
 
       <SelectNFTModal
         type="ownered"
@@ -469,7 +467,7 @@ export const Home: React.FC<HomeProps> = ({ meta }) => {
                 </Stack>
 
                 <Stack spacing="4" direction="row" w="100%">
-                  <Link type="external" w="100%" href="/https://dune.com/shiro_social/reand">
+                  <Link type="external" w="100%" href="https://dune.com/shiro_social/reand">
                     <Button w="100%" size="md" fontWeight="semibold" bgColor="orange.200">
                       <Stack
                         spacing="2"
