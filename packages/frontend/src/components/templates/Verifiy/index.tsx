@@ -110,23 +110,23 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
       const account = await signer.getAddress();
       const chainId = chain ? (String(chain.id) as SupportChainId) : '80001';
 
-      const checkWorldId = setInterval(() => {
+      const checkForWorldId = setInterval(() => {
         getVerified(signer, addressJson[chainId].reand, { account, idType: id('WORLDID') }).then(
           isWorldIdVerified => {
             setIsWorldIdVerified(isWorldIdVerified);
             if (isWorldIdVerified) {
-              clearInterval(checkWorldId);
+              clearInterval(checkForWorldId);
             }
           }
         );
       }, 5000);
 
-      const checkPolygonId = setInterval(() => {
+      const checkForPolygonId = setInterval(() => {
         getVerified(signer, addressJson[chainId].reand, { account, idType: id('POLYGONID') }).then(
           isPolygonIdVerified => {
             setIsPolygonIdVerified(isPolygonIdVerified);
             if (isPolygonIdVerified) {
-              clearInterval(checkPolygonId);
+              clearInterval(checkForPolygonId);
             }
           }
         );
@@ -280,7 +280,7 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
             <Stack spacing="4" w="100%" id="rewardId">
               <Stack alignItems="flex-start" justifyContent="center">
                 <Text fontSize="md" fontWeight="medium">
-                  NFT's are now tied up!
+                  Success!
                 </Text>
               </Stack>
               <Stack spacing="6" alignItems="flex-start" justifyContent="center">
