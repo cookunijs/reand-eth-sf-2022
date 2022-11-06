@@ -3,9 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import {
-  ButtonGroup,
   Icon,
-  IconButton,
   Stack,
   Text,
   useBoolean,
@@ -20,7 +18,7 @@ import { motion } from 'framer-motion';
 import { useReward } from 'react-rewards';
 import { QRCode } from 'react-qr-svg';
 import { FaTwitter } from 'react-icons/fa';
-import { FiCheck, FiX } from 'react-icons/fi';
+import { FiCheck } from 'react-icons/fi';
 import { Button, Image, Link } from '@components/atoms';
 import { Modal } from '@components/molecules';
 import { Head, Header, HeadProps } from '@components/organisms';
@@ -70,8 +68,8 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
 
   const [worldIdVerificationResponse, setWorldIdVerificationResponse] =
     useState<VerificationResponse>();
-  const [isWorldIdVerified, setIsWorldIdVerified] = useState(false);
-  const [isPolygonIdVerified, setIsPolygonIdVerified] = useState(false);
+  const [isVerifiedForWorldId, setIsVerifiedForWorldId] = useState(false);
+  const [isVerifiedForPolygonId, setIsVerifiedForPolygonId] = useState(false);
 
   const [disabled, setDisabled] = useBoolean();
   const [loading, setLoading] = useBoolean();
@@ -91,7 +89,7 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
     onClose: onCloseForSending,
   } = useDisclosure();
 
-  const polygonIdQr = useMemo(() => {
+  const qrForPolygonId = useMemo(() => {
     if (!pageContext.polygonId) {
       return;
     }
@@ -112,9 +110,9 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
 
       const checkForWorldId = setInterval(() => {
         getVerified(signer, addressJson[chainId].reand, { account, idType: id('WORLDID') }).then(
-          isWorldIdVerified => {
-            setIsWorldIdVerified(isWorldIdVerified);
-            if (isWorldIdVerified) {
+          isVerifiedForWorldId => {
+            setIsVerifiedForWorldId(isVerifiedForWorldId);
+            if (isVerifiedForWorldId) {
               clearInterval(checkForWorldId);
             }
           }
@@ -123,9 +121,9 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
 
       const checkForPolygonId = setInterval(() => {
         getVerified(signer, addressJson[chainId].reand, { account, idType: id('POLYGONID') }).then(
-          isPolygonIdVerified => {
-            setIsPolygonIdVerified(isPolygonIdVerified);
-            if (isPolygonIdVerified) {
+          isVerifiedForPolygonId => {
+            setIsVerifiedForPolygonId(isVerifiedForPolygonId);
+            if (isVerifiedForPolygonId) {
               clearInterval(checkForPolygonId);
             }
           }
@@ -217,7 +215,7 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                   </Text>
                   {signer && (
                     <>
-                      {!isWorldIdVerified && (
+                      {!isVerifiedForWorldId && (
                         <>
                           {!worldIdVerificationResponse && (
                             <WorldIDWidget
@@ -235,12 +233,12 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                               disabled={!worldIdVerificationResponse || disabled || loading}
                               colorScheme="blue"
                             >
-                              Register
+                              Execute
                             </Button>
                           )}
                         </>
                       )}
-                      {isWorldIdVerified && (
+                      {isVerifiedForWorldId && (
                         <Text fontSize="sm" fontWeight={'bold'}>
                           Verified ✅
                         </Text>
@@ -250,15 +248,19 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                 </Stack>
               )}
 
-              {pageContext && pageContext.polygonId && polygonIdQr && (
+              {pageContext && pageContext.polygonId && qrForPolygonId && (
                 <Stack w="100%">
                   <Text fontSize="lg" fontWeight="bold">
                     Verifiy Polygon ID
                   </Text>
-                  {!isPolygonIdVerified && (
-                    <QRCode level="Q" style={{ width: 300 }} value={JSON.stringify(polygonIdQr)} />
+                  {!isVerifiedForPolygonId && (
+                    <QRCode
+                      level="Q"
+                      style={{ width: 300 }}
+                      value={JSON.stringify(qrForPolygonId)}
+                    />
                   )}
-                  {isPolygonIdVerified && (
+                  {isVerifiedForPolygonId && (
                     <Text fontSize="sm" fontWeight={'bold'}>
                       Verified ✅
                     </Text>

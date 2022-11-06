@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useBoolean } from '@chakra-ui/react';
-import { useNetwork, useSigner } from 'wagmi';
+import { useSigner } from 'wagmi';
 import Component from './Component';
-import { sendRestApi } from '@lib';
-import { getDefaultChainId } from '@lib/ethereum';
 import { getAssetsForQN } from '@lib/quicknode';
 import { NFTAssetModel } from 'src/types';
 import { QuickNodeAPIAssetOptions } from 'src/types/quicknode';
 
-export const getAssetLimit = 12;
-export const getAssetLimitForSearch = 50;
+export const getAssetLimit = 30;
 
 export interface SelectNFTModalProps {
   type?: 'ownered';
@@ -30,9 +27,7 @@ export const SelectNFTModal: React.FC<SelectNFTModalProps> = ({
   deleteSelectedAsset,
   onClose,
 }) => {
-  const { chain } = useNetwork();
-  const { data: signer, isError, isLoading } = useSigner();
-  const chainId = chain?.id;
+  const { data: signer } = useSigner();
   const [displayAssets, setDisplayAssets] = useState<NFTAssetModel[]>([]);
   const [ownedAssets, setOwnedAssets] = useState<NFTAssetModel[]>([]);
   const [ownedAssetsForSearch, setOwnedAssetsForSearch] = useState<NFTAssetModel[]>([]);

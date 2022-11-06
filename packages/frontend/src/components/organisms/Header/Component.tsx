@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import {
   Avatar,
@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { FiMenu, FiLogOut, FiMoon, FiSun } from 'react-icons/fi';
-import { Button, Logo, Link, Image } from '@components/atoms';
+import { Button, Logo, Link } from '@components/atoms';
 import { useTranslation } from '@hooks';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
