@@ -91,17 +91,17 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
     onClose: onCloseForSending,
   } = useDisclosure();
 
-  const polygonIdQR = useMemo(() => {
+  const polygonIdQr = useMemo(() => {
     if (!pageContext.polygonId) {
       return;
     }
     const chainId = chain ? (String(chain.id) as SupportChainId) : '80001';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const qrProofRequestJson = { ...proofRequest } as any;
-    qrProofRequestJson.body.transaction_data.contract_address = addressJson[chainId].reand;
-    qrProofRequestJson.body.scope[0].rules.query.req = pageContext.polygonId.req;
-    qrProofRequestJson.body.scope[0].rules.query.schema = pageContext.polygonId.schema;
-    return qrProofRequestJson;
+    const proofRequestForQr = { ...proofRequest } as any;
+    proofRequestForQr.body.transaction_data.contract_address = addressJson[chainId].reand;
+    proofRequestForQr.body.scope[0].rules.query.req = pageContext.polygonId.req;
+    proofRequestForQr.body.scope[0].rules.query.schema = pageContext.polygonId.schema;
+    return proofRequestForQr;
   }, [pageContext.polygonId]);
 
   useEffect(() => {
@@ -250,13 +250,13 @@ export const Verifiy: React.FC<VerifiyProps> = ({ meta, pageContext }) => {
                 </Stack>
               )}
 
-              {pageContext && pageContext.polygonId && polygonIdQR && (
+              {pageContext && pageContext.polygonId && polygonIdQr && (
                 <Stack w="100%">
                   <Text fontSize="lg" fontWeight="bold">
                     Verifiy Polygon ID
                   </Text>
                   {!isPolygonIdVerified && (
-                    <QRCode level="Q" style={{ width: 256 }} value={JSON.stringify(polygonIdQR)} />
+                    <QRCode level="Q" style={{ width: 300 }} value={JSON.stringify(polygonIdQr)} />
                   )}
                   {isPolygonIdVerified && (
                     <Text fontSize="sm" fontWeight={'bold'}>
